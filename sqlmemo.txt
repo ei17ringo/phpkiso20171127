@@ -1,0 +1,86 @@
+データベースの操作用SQL文（CRUD）
+
+Create（データ作成）
+`...アクサングラーブ。テーブル名やカラム名を囲むときに使用
+バッククオーテーションとも呼ぶ
+
+INSERT INTO `survey` (`nickname`,`email`,`content`) VALUES ("のびた","nobita@gmail.com","ぼくのびた");
+
+INSERT INTO `データを作りたいテーブル名` (`カラム名1`,`カラム名2`,...)VALUES("カラム名1にセットしたい値","カラム名2にセットしたい値",...);
+
+Read（データの読み出し）
+
+SELECT * FROM `survey`;
+
+SELECT `取得したいカラム名1`,`取得したいカラム名2`,... FROM `データを取得したいテーブル名` WHERE 絞り込み条件;
+
+SELECT と FROMの間には取得したいカラム名カンマ区切りで書きます。*(アスタリスク)はカラム全部という意味
+WHEREは取得したいデータの条件を指定できる。省略も可能。省略した時は、全データ取得
+
+SELECT * FROM `survey` WHERE `nickname` = "ジャイアン";
+
+上のような検索方法を完全一致検索と呼びます。
+
+SELECT * FROM `survey` WHERE `email` LIKE "%n%";
+
+上のような検索方法をあいまい検索（部分一致 or 中間一致検索）と呼びます
+
+前方一致検索（頭がnから始まる）
+SELECT * FROM `survey` WHERE `email` LIKE "n%";
+
+後方一致検索（語尾が　「だせよ」で終わる）
+SELECT * FROM `survey` WHERE `content` LIKE "%だせよ";
+
+数値に対する絞込検索
+SELECT * FROM `survey` WHERE `code` > 5
+
+複数条件での絞込
+SELECT * FROM `survey` WHERE `email` LIKE "%n%" AND `email` LIKE "%b%";
+SELECT * FROM `survey` WHERE `email` LIKE "%n%" OR `email` LIKE "%s%";
+
+SELECT * FROM `survey` WHERE `code` IN(1,3,5);
+
+並べ替え
+SELECT * FROM `survey` ORDER BY `code` ASC;
+
+codeの数字が小さい順に並ぶ
+ASC 昇順　(ASCは省略可能)
+
+SELECT * FROM `survey` ORDER BY `code` DESC;
+
+codeの数字が大きい順に並ぶ
+DESC 降順　（省略不可）
+
+
+UPDATE文
+UPDATE `survey` SET `nickname` = "スネ夫" WHERE `code` = 8;
+
+UPDATE `更新したいデータが有るテーブル名` SET `更新したいカラム名`="更新したいデータ",... WHERE 更新したいデータを取得する条件;
+
+注意！WHERE句が指定されていないと、すべて同じ更新が実行されてしまいます。
+
+DELETE文
+DELETE FROM `survey` WHERE `code` = 9;
+
+DELETE FROM `削除したいデータが有るテーブル名` WHERE 削除したいデータを取得する条件;
+
+注意！WHERE句が指定されてないと、全てのデータが削除されてしまいます。
+
+宿題
+CRUDの例文を作ってきましょう
+INSERT文
+クラスメイトのニックネームでひとり一つぶやきのデータが作成できるようなINSERT文を作りましょう。
+
+SELECT文
+語尾に「です」とついてるコメントを書いてるデータを検索できるSELECT文を作りましょう
+
+UPDATE文
+語尾に「です」とついてコメントを書いてるデータを「セブ最高だぜ」に変更するUPDATE文を作りましょう
+
+DELETE文
+コメントが「セブ最高だぜ」に変えられてしまったデータをすべて削除するDELETE文を作りましょう
+
+crud.sqlファイルを作成し、上のSQL文すべて記述して提出してください。
+提出フォルダ->自分の名前フォルダの直下においてください。
+
+
